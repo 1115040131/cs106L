@@ -465,8 +465,65 @@ public:
 
     /* Milestone 2 headers (you need to declare these) */
     // TODO: declare headers for copy constructor/assignment, move constructor/assignment
+    /*
+     * Copy constructor
+     * Creates a HashMap with the exisiting HashMap rhs
+     *
+     * Requirements: the rhs HashMap should have the same <K, M, H>.
+     *
+     * Usage:
+     *      HashMap<char, int> rhs{{'a', 3}, {'b', 5}, {'c', 7}};
+     *      HashMao<char, int> map(rhs);
+     *
+     * Complexity: O(N), where N = rhs.size();
+     */
+    HashMap(const HashMap& rhs);
 
-private:
+    /*
+     * Copy assignment operator
+     * Copy the elements on the rhs of the assignment into the lhs HashMap
+     *
+     * Requirements: the rhs HashMap should have the same <K, M, H>.
+     *
+     * Usage:
+     *      HashMap<char, int> rhs{{'a', 3}, {'b', 5}, {'c', 7}};
+     *      HashMao<char, int> map;
+     *      map = rhs;
+     *
+     * Complexity: O(N), where N = rhs.size();
+     */
+    HashMap& operator=(const HashMap& rhs);
+
+    /*
+     * Move constructor
+     * Creates a HashMap by moving the elements in the rhs HashMap into the HashMap
+     *
+     * Requirements: the rhs HashMap should have the same <K, M, H>.
+     *
+     * Usage:
+     *      HashMap<char, int> rhs{{'a', 3}, {'b', 5}, {'c', 7}};
+     *      HashMao<char, int> map(std::move(lhs));
+     *
+     * Complexity: O(N), where N = rhs.size();
+     */
+    HashMap(HashMap&& rhs);
+
+    /*
+     * Move assignment operator
+     * Move the elements in the rhs HashMap into the lhs HashMap
+     *
+     * Requirements: the rhs HashMap should have the same <K, M, H>.
+     *
+     * Usage:
+     *      HashMap<char, int> rhs{{'a', 3}, {'b', 5}, {'c', 7}};
+     *      HashMao<char, int> map;
+     *      map = std::move(rhs);
+     *
+     * Complexity: O(N), where N = rhs.size();
+     */
+    HashMap& operator=(HashMap&& rhs);
+
+   private:
     /*
     * node structure represented a node in a linked list.
     * Each node consists of a value_type (K/M pair) and a next pointer.

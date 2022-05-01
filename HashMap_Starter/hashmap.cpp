@@ -263,5 +263,51 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& rhs) {
 }
 
 /* Begin Milestone 2: Special Member Functions */
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(const HashMap& rhs) : HashMap(rhs.bucket_count(), rhs._hash_function) {
+    for (auto [key, value] : rhs) {
+        insert({key, value});
+    }
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(const HashMap & rhs) {
+    if (&rhs == this) {
+        return *this;
+    }
+    clear();
+    for (auto [key, value] : rhs) {
+        insert({key, value});
+    }
+    return *this;
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(HashMap&& rhs) :
+    _size{std::move(rhs._size)},
+    _hash_function{std::move(rhs._hash_function)},
+    _buckets_array{rhs.bucket_count(), nullptr} {
+    for (size_t i = 0; i < rhs.bucket_count(); ++i) {
+        _buckets_array[i] = std::move(rhs._buckets_array[i]);
+        // rhs._buckets_array[i] = nullptr;
+    }
+    // rhs._size = 0;
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(HashMap && rhs) {
+    if (&rhs != this) {
+        clear();
+        _size = std::move(rhs._size);
+        _hash_function = std::move(rhs._hash_function);
+        _buckets_array.resize(rhs.bucket_count());
+        for (size_t i = 0; i < rhs.bucket_count(); ++i) {
+            _buckets_array[i] = std::move(rhs._buckets_array[i]);
+            // rhs._buckets_array[i] = nullptr;
+        }
+        // rhs._size = 0;
+    }
+    return *this;
+}
 
 /* end student code */

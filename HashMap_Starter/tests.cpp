@@ -1614,6 +1614,7 @@ void F_move_edge() {
 
         // Check that the map is still assignable from.
         HashMap<std::string, int> copy = map1;
+        
         HashMap<std::string, int> temp, new_assign;
         temp = std::move(map1);
         new_assign = std::move(temp);
